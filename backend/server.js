@@ -6,6 +6,7 @@ const { connectDB, connection } = require("./config/connection");
 const cors = require("cors");
 require("dotenv").config();
 const http = require("http");
+const path = require("path");
 
 const app = express();
 connectDB();
@@ -16,12 +17,18 @@ app.use("", RoomRouter);
 app.use("", AuthRouter);
 app.use("", UserRouter);
 
-const __dirname1 = require("path").resolve();
+const __dirname1 = path.resolve();
+const parent = path.resolve(__dirname1, "../");
 if (process.env.NODE_ENV === "production") {
-} else {
-  app.use(express.static(__dirname1));
+  app.use(express.static(path.join(parent, "/CodeTogetherFront/dist")));
   app.get("*", (req, res) => {
-    res.send("Server is running");
+    res.sendFile(
+      path.resolve(parent, "CodeTogetherFront", "dist", "index.html")
+    );
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running");
   });
 }
 

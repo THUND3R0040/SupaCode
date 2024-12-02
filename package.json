@@ -1,0 +1,16 @@
+{
+  "name": "SupaCode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "install-server": "cd backend && npm install",
+    "start-server": "cd backend && node index.js",
+    "install-client": "cd CodeTogetherFront && npm install",
+    "build-client": "cd CodeTogetherFront && npm run build",
+    "start-client": "cd CodeTogetherFront && npm run start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
