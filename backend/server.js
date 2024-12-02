@@ -45,7 +45,8 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "https://supacode-1.onrender.com", // Allow frontend domain
+    methods: ["GET", "POST"], // Allowed methods
   },
 });
 
