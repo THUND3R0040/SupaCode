@@ -19,9 +19,9 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 
-app.use("/api", RoomRouter);
-app.use("/api", AuthRouter);
-app.use("/api", UserRouter);
+app.use("/", RoomRouter);
+app.use("/", AuthRouter);
+app.use("/", UserRouter);
 
 // const __dirname1 = path.resolve();
 // const parent = path.resolve(__dirname1, "../");
