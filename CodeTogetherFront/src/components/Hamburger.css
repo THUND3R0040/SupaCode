@@ -1,0 +1,36 @@
+.hamburger {
+  position: relative;
+  padding: 1.5rem;
+}
+
+.menu-toggle-bar {
+  display: block;
+  position: absolute;
+  top: 50%;
+  margin-top: -1px;
+  right: 0;
+  width: 70%;
+  height: 4px;
+  border-radius: 4px;
+  background-color: black;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle-bar--top {
+  transform: translate(0, -8px);
+}
+.menu-toggle-bar--bottom {
+  transform: translate(0, 8px);
+}
+
+.menu-toggle-bar--top-active {
+  transform: translate(0, 0) rotate(45deg);
+}
+
+.menu-toggle-bar--middle-active {
+  opacity: 0;
+}
+
+.menu-toggle-bar--bottom-active {
+  transform: translate(0, 0) rotate(-45deg);
+}
