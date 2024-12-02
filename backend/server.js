@@ -44,7 +44,6 @@ const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
     origin: "*", // Allow frontend domain
-    methods: ["GET", "POST"], // Allowed methods
   },
 });
 

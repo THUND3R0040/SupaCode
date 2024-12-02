@@ -14,7 +14,15 @@ export async function register(user) {
 
 export async function login(user) {
   try {
-    const res = await axios.post(`${import.meta.env.VITE_API_URI}/login`, user);
+    const res = await axios.post(
+      `${import.meta.env.VITE_API_URI}/login`,
+      user,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     return res;
   } catch (err) {
     return err;
