@@ -1,4 +1,4 @@
-const express = require("express");
+// const express = require("express");
 const AuthRouter = require("./routes/Auth");
 const RoomRouter = require("./routes/Room");
 const UserRouter = require("./routes/User");
@@ -13,40 +13,37 @@ connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //allow all users
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+});
 app.use(express.json());
 
 app.use("/api", RoomRouter);
 app.use("/api", AuthRouter);
 app.use("/api", UserRouter);
 
-const __dirname1 = path.resolve();
-const parent = path.resolve(__dirname1, "../");
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(parent, "/CodeTogetherFront/dist")));
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(parent, "CodeTogetherFront", "dist", "index.html")
-    );
-  });
-} else {
-  app.get("/", (req, res) => {
-    res.send("API is running");
-  });
-}
+// const __dirname1 = path.resolve();
+// const parent = path.resolve(__dirname1, "../");
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(parent, "/CodeTogetherFront/dist")));
+//   app.get("*", (req, res) => {
+//     res.sendFile(
+//       path.resolve(parent, "CodeTogetherFront", "dist", "index.html")
+//     );
+//   });
+// } else {
+//   app.get("/", (req, res) => {
+//     res.send("API is running");
+//   });
+// }
 
 const server = http.createServer(app);
 
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: "https://supacode-1.onrender.com", // Allow frontend domain
+    origin: "*", // Allow frontend domain
     methods: ["GET", "POST"], // Allowed methods
   },
 });
