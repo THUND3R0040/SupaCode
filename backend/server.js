@@ -12,7 +12,15 @@ const app = express();
 connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://supacode-1.onrender.com/",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+app.use(express.json());
+
 app.use("", RoomRouter);
 app.use("", AuthRouter);
 app.use("", UserRouter);
