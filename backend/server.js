@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://supacode-1.onrender.com/",
+    origin: "https://supacode-1.onrender.com",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -42,103 +42,43 @@ app.use("", UserRouter);
 
 const server = http.createServer(app);
 
-// // const { Server } = require("socket.io");
-// // const io = new Server(server, {
-// //   cors: {
-// //     origin: "*",
-// //   },
-// // });
+const { Server } = require("socket.io");
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
-// // async function updateContent(roomId, content) {
-// //   const room = connection.collection("room");
-// //   const roomData = await room.findOne({ id: roomId });
-// //   const roomContent = connection.collection("roomContent");
-// //   roomContent.updateOne(
-// //     { roomId: roomData._id },
-// //     { $set: { content: content } },
-// //     { upsert: true }
-// //   );
-// // }
+const roomBuffer = {};
 
-// // async function run(roomId) {
-// //   const room = connection.collection("room");
-// //   const roomData = await room.findOne({ id: roomId });
-// //   const roomContent = connection.collection("roomContent");
+io.on("connection", (socket) => {
+  socket.on("join-room", (roomId) => {
+    console.log("user joined room", roomId);
+    socket.join(roomId);
+  });
 
-// //   const changeStream = roomContent.watch();
-// //   changeStream.on("change", (change) => {
-// //     if (
-// //       change.operationType === "update" ||
-// //       change.operationType === "insert"
-// //     ) {
-// //       console.log("zzz");
-// //       const updatedContent =
-// //         change.operationType === "update"
-// //           ? change.updateDescription.updatedFields.content
-// //           : change.fullDocument.content;
-// //       io.to(roomId).emit("code-change", updatedContent);
-// //     }
-// //   });
-// //   changeStream.on("error", (error) => {
-// //     console.log(error);
-// //   });
-// // }
+  socket.on("send-code", async (data, roomId) => {
+    console.log("code change", data);
+    if (!roomBuffer[roomId]) {
+      roomBuffer[roomId] = "";
+    }
+    roomBuffer[roomId] = data;
+    io.to(roomId).emit("code-change", data);
+  });
+});
 
-// const roomBuffer = {};
-
-// io.on("connection", (socket) => {
-//   socket.on("join-room", (roomId) => {
-//     console.log("user joined room", roomId);
-//     // run(roomId).catch(console.dir);
-//     socket.join(roomId);
-//     // if (roomBuffer[roomId]) {
-//     //   socket.emit("sync-data", roomBuffer[roomId]);
-//     // }
-//   });
-
-//   // socket.on("sync-data", async (roomId) => {
-//   //   if (roomBuffer[roomId]) {
-//   //     socket.emit("sync-data", roomBuffer[roomId]);
-//   //   }
-//   // });
-
-//   socket.on("send-code", async (data, roomId) => {
-//     console.log("code change", data);
-//     if (!roomBuffer[roomId]) {
-//       roomBuffer[roomId] = "";
-//     }
-//     roomBuffer[roomId] = data;
-//     // console.log("roomBuffer", roomBuffer[roomId]);
-//     io.to(roomId).emit("code-change", data);
-
-//     // setTimeout(async () => {
-//     //   const room = connection.collection("room");
-//     //   const roomData = await room.findOne({ id: roomId });
-//     //   console.log("interval");
-//     //   const roomContent = connection.collection("roomContent");
-//     //   roomContent.updateOne(
-//     //     { roomId: roomData._id },
-//     //     { $set: { content: roomBuffer[roomId] } },
-//     //     { upsert: true }
-//     //   );
-//     // }, 5000);
-
-//     // run(roomId).catch(console.dir);
-//   });
-// });
-
-// setInterval(async () => {
-//   for (const roomId in roomBuffer) {
-//     const room = connection.collection("room");
-//     const roomData = await room.findOne({ id: roomId });
-//     const roomContent = connection.collection("roomContent");
-//     roomContent.updateOne(
-//       { roomId: roomData._id },
-//       { $set: { content: roomBuffer[roomId] } },
-//       { upsert: true }
-//     );
-//   }
-// }, 5000);
+setInterval(async () => {
+  for (const roomId in roomBuffer) {
+    const room = connection.collection("room");
+    const roomData = await room.findOne({ id: roomId });
+    const roomContent = connection.collection("roomContent");
+    roomContent.updateOne(
+      { roomId: roomData._id },
+      { $set: { content: roomBuffer[roomId] } },
+      { upsert: true }
+    );
+  }
+}, 5000);
 
 server.listen(3000, () => {
   console.log("Server is running on port 3000");
