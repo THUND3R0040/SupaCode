@@ -17,20 +17,20 @@ app.use("", RoomRouter);
 app.use("", AuthRouter);
 app.use("", UserRouter);
 
-const __dirname1 = path.resolve();
-const parent = path.resolve(__dirname1, "../");
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(parent, "/CodeTogetherFront/dist")));
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(parent, "CodeTogetherFront", "dist", "index.html")
-    );
-  });
-} else {
-  app.get("/", (req, res) => {
-    res.send("API is running");
-  });
-}
+// const __dirname1 = path.resolve();
+// const parent = path.resolve(__dirname1, "../");
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(parent, "/CodeTogetherFront/dist")));
+//   app.get("*", (req, res) => {
+//     res.sendFile(
+//       path.resolve(parent, "CodeTogetherFront", "dist", "index.html")
+//     );
+//   });
+// } else {
+//   app.get("/", (req, res) => {
+//     res.send("API is running");
+//   });
+// }
 
 const server = http.createServer(app);
 
