@@ -15,6 +15,11 @@ app.use(express.urlencoded({ extended: true }));
 //allow all users
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "OPTIONS, GET, POST, PUT, PATCH, DELETE"
+  );
   next();
 });
 app.use(express.json());
@@ -78,6 +83,6 @@ setInterval(async () => {
   }
 }, 5000);
 
-server.listen(3000, () => {
+server.listen(process.env.PORT, () => {
   console.log("Server is running on port 3000");
 });
