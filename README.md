@@ -36,9 +36,16 @@ Check out the live version of SupaCode:
 
 ---
 
+##Contact
+If you have questions or suggestions, feel free to reach out:
+
+Email: gargouri.ahmed@outlook.com
+GitHub: THUND3R0040
+
 ## Setup Instructions
 
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/THUND3R0040/SupaCode.git
 cd SupaCode
+
