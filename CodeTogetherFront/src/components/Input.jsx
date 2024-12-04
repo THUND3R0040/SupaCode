@@ -6,7 +6,7 @@ const Input = ({ label, type, name, required, className, value }) => (
       name={name}
       id={name}
       required={required}
-      className={`border-2 border-slate-500 pl-2 ${className || ""}`}
+      className={`border-2 border-slate-500 pl-2 text-black ${className || ""}`}
       value={value}
     />
   </div>

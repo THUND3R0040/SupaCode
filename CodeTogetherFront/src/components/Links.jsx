@@ -1,39 +1,40 @@
 import React from "react";
 import User from "./svg/User";
+import { Link } from "react-router-dom";
 
 export default function Links() {
   return (
     <li className="hidden md:block">
       <ul className="flex flex-row gap-4 items-center">
         <li>
-          <a href="/" className="font-proxima ">
+          <Link to="/" className="font-proxima ">
             Home
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/" className="font-proxima ">
-            Features
-          </a>
+          <Link to="/dashboard" className="font-proxima ">
+            Dashboard
+          </Link>
         </li>
         <li>
-          <a href="/" className="font-proxima ">
+          <Link to="/" className="font-proxima ">
             Pricing
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/" className="font-proxima ">
+          <Link to="/" className="font-proxima ">
             Contact
-          </a>
+          </Link>
         </li>
         <li className="flex flex-row items-center gap-1">
-          <a href="/" className="font-proxima ">
+          <Link to="/login" className="font-proxima ">
             Log In
-          </a>
+          </Link>
           <User height="28" width="28" />
         </li>
         <li>
           <button className="bg-pr w-full h-full rounded-md border-[1px] border-black  py-1 font-Sgro font-bold px-2">
-            Get Stared
+            <Link to="/register">Get Stared</Link>
           </button>
         </li>
       </ul>
