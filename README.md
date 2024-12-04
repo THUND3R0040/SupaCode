@@ -34,18 +34,19 @@ Check out the live version of SupaCode:
 - **Frontend:** Deployed on Render
 - **Backend:** Deployed on Render
 
----
 
-##Contact
+## Contact
 If you have questions or suggestions, feel free to reach out:
 
-Email: gargouri.ahmed@outlook.com
-GitHub: THUND3R0040
-
+- **Email:** gargouri.ahmed@outlook.com
+- **GitHub:** [THUND3R0040](https://github.com/THUND3R0040)
+---
 ## Setup Instructions
 
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/THUND3R0040/SupaCode.git
 cd SupaCode
+
+
 
